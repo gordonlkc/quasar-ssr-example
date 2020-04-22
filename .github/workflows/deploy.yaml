@@ -1,0 +1,37 @@
+name: deploy to lambda
+
+on:
+  push:
+    branches:
+    - master
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_ACCESS_SECRET: ${{ secrets.AWS_ACCESS_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+          lfs: true
+      - name: use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: npm install
+        run: npm ci
+      - name: quasar install
+        run: npm install -g @quasar/cli
+      - name: quasar build
+        run: quasar build -m ssr
+      - name: install serverless
+        run: npm i -g serverless@1.47.0
+      - name: set up serverless
+        run: cd / && serverless config credentials --provider aws --key ${AWS_ACCESS_KEY} --secret ${AWS_ACCESS_SECRET} && cd -
+      - name: serverless deploy
+        run: SLS_DEBUG=* serverless deploy

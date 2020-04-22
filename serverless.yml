@@ -1,0 +1,22 @@
+# serverless.yml
+service: quasar-ssr-example
+provider:
+    name: aws
+    runtime: nodejs12.x
+    region: ap-southeast-2
+
+functions:
+    ssr:
+        handler: handler.server
+        events:
+            - http: ANY /
+            - http: ANY /{proxy+}
+
+plugins:
+    - serverless-apigw-binary
+    - serverless-offline
+custom:
+    apigwBinary:
+        types:
+            - "*/*"
+
