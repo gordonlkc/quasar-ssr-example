@@ -22,7 +22,7 @@
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
-    "serverless": "^1.68.0",
+    "serverless": "^3.33.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-offline": "^5.12.1"
   },
