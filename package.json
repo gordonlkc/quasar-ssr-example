@@ -11,7 +11,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/app": "^1.7.1",
+    "@quasar/app": "^2.4.3",
     "@quasar/extras": "^1.0.0",
     "quasar": "^1.0.0-beta.0",
     "serverless-http": "^2.3.2"
